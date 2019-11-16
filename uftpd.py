@@ -368,8 +368,10 @@ class FTP_client:
             elif command == "SITE":
                 try:
                     import ecp5
-                    ecp5.program(path)
-                    cl.sendall('250 OK\r\n')
+                    if ecp5.program(path):
+                        cl.sendall('250 OK\r\n')
+                    else:
+                        cl.sendall('550 Fail\r\n')
                 except:
                     cl.sendall('550 Fail\r\n')
             else:
